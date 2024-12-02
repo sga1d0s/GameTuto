@@ -1,8 +1,8 @@
 // clase que define los frames
 export default class Frames {
-  constructor(framePerState){
+  constructor(framesPerState){
     // numero de frames por estado de animación
-    this.framePerState = framePerState
+    this.framesPerState = framesPerState
     // contador de frames
     this.frameCounter = 0
   }

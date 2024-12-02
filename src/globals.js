@@ -3,7 +3,7 @@ import { Game } from "./constants.js"
 
 export default {
 
-  // acceso a vanvas y al context
+  // acceso a canvas y al context
   canvas: {},
   ctx: {},
 
@@ -18,9 +18,6 @@ export default {
 
   // tiempo de ciclo objetivo (seconds, constante)
   frameTimeObj: 0,
-
-  // caja de texto para mostrar datos de depuración
-  txtPruebas: {},
 
   // objeto que guarda los datos de imagen (tileSet)
   tileSet: {},

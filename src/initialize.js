@@ -6,7 +6,6 @@ import Frames from "./Frames.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
-
   // canvas
   globals.canvas = document.getElementById('gameScreen')
 
@@ -15,9 +14,6 @@ function initHTMLElements() {
 
   // eliminación del Anti-Aliasing
   globals.ctx.imageSmoothingEnabled = false
-
-  // caja de texto para pruebas
-  globals.txtPruebas = document.getElementById('txtPruebas')
 }
 
 // funcion que inicializa las variables del juego
@@ -37,7 +33,7 @@ function loadAssets() {
   // load the tileSet image
   globals.tileSet = new Image()
   globals.tileSet.addEventListener("load", loadHandler, false)
-  globals.tileSet.src = './images/player.png'
+  globals.tileSet.src = "./images/player.png"
   globals.assetsToLoad.push(globals.tileSet)
 }
 
@@ -45,16 +41,13 @@ function loadAssets() {
 function loadHandler() {
   globals.assetsLoaded++
 
-  // una vez se han cargado todos los activos pasamos
+  // una vez se han cargado todos los activos pasar
   if (globals.assetsLoaded === globals.assetsToLoad.length) {
 
     // remove the load event listener
     globals.tileSet.removeEventListener("load", loadHandler, false)
 
-    console.log(globals.assetsToLoad[0]);
     console.log("Assets finish loading")
-
-    console.log(globals.sprites);
 
     // start the game
     globals.gameState = Game.PLAYING

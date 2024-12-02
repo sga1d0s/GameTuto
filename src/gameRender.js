@@ -3,9 +3,9 @@ import { Game } from "./constants.js"
 
 // funcion que renderiza los graficos
 export default function render() {
-
   // change what the game is doing based on the game state
   switch (globals.gameState) {
+
     case Game.LOADING:
       // draw loading spinner
       break
@@ -17,7 +17,6 @@ export default function render() {
     default:
       console.error("Error: Game State invalid")
   }
-
 }
 
 function drawGame() {
@@ -43,9 +42,9 @@ function renderSprite(sprite) {
   globals.ctx.drawImage(
     globals.tileSet,
     xTile, yTile,
-    sprite.imageSet.xSice, sprite.imageSet.ySice,
+    sprite.imageSet.xSize, sprite.imageSet.ySize,
     xPos, yPos,
-    sprite.imageSet.xSize, sprite.imageSet.ySice
+    sprite.imageSet.xSize, sprite.imageSet.ySize
   )
 }
 
@@ -56,7 +55,7 @@ function drawSprites() {
 
     // TEST: dibuja un rectangulo verde alrededor del sprite
     drawSpriteRectangle(sprite)
-    
+
     renderSprite(sprite)
   }
 }

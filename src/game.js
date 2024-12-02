@@ -4,7 +4,7 @@ import update from "./gameLogic.js"
 import render from "./gameRender.js"
 
 ////////////////////////////////////
-// GAME INIT
+//            GAME INIT           //
 ////////////////////////////////////
 
 window.onload = init
@@ -25,7 +25,6 @@ function init() {
 
   // start the first frame request
   window.requestAnimationFrame(gameLoop)
-
 }
 
 ////////////////////////////////////
@@ -38,7 +37,7 @@ function gameLoop(timeStamp) {
   // keep requesting new frames
   window.requestAnimationFrame(gameLoop, globals.canvas)
 
-  // tiempo resl de ciclo de ejecución
+  // tiempo real de ciclo de ejecución
   const elapsedCycleSeconds = (timeStamp - globals.previousCycleMilliseconds) / 1000
 
   // tiempo anterior de ciclo de ejecución
