@@ -54,12 +54,14 @@ function loadHandler() {
     console.log(globals.assetsToLoad[0]);
     console.log("Assets finish loading")
 
+    console.log(globals.sprites);
+
     // start the game
     globals.gameState = Game.PLAYING
   }
 }
 
-function initsprites() {
+function initSprites() {
   initPlayer()
 }
 
@@ -82,5 +84,5 @@ export {
   initHTMLElements,
   initVars,
   loadAssets,
-  initsprites,
+  initSprites,
 }

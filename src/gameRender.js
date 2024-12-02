@@ -34,7 +34,7 @@ function renderSprite(sprite) {
 
   // calcular la posición en el tile a dibujar
   const xTile = sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset
-  const yTile = sprite.state * sprite.imageSet.gridSize +sprite.imageSet.yOffset
+  const yTile = sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset
 
   const xPos = Math.floor(sprite.xPos)
   const yPos = Math.floor(sprite.yPos)
@@ -50,9 +50,26 @@ function renderSprite(sprite) {
 }
 
 // dibunar los sprites
-function drawSprites(){
+function drawSprites() {
   for (let i = 0; i < globals.sprites.length; i++) {
     const sprite = globals.sprites[i];
+
+    // TEST: dibuja un rectangulo verde alrededor del sprite
+    drawSpriteRectangle(sprite)
+    
     renderSprite(sprite)
   }
+}
+
+// funcion para dibujar un rectangulo y así ajustar el sprite
+
+function drawSpriteRectangle(sprite) {
+  // datos del sprite
+  const x1 = Math.floor(sprite.xPos)
+  const y1 = Math.floor(sprite.yPos)
+  const w1 = sprite.imageSet.xSize
+  const h1 = sprite.imageSet.ySize
+
+  globals.ctx.fillStyle = "green"
+  globals.ctx.fillRect(x1, y1, w1, h1)
 }

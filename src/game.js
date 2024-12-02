@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars, loadAssets, initsprites } from "./initialize.js"
+import { initHTMLElements, initVars, loadAssets, initSprites } from "./initialize.js"
 import update from "./gameLogic.js"
 import render from "./gameRender.js"
 
@@ -18,7 +18,7 @@ function init() {
   loadAssets()
 
   // iniciar los sprites
-  initsprites()
+  initSprites()
 
   // inicialización de las variables de juego
   initVars()
