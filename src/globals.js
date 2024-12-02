@@ -2,7 +2,7 @@
 import { Game } from "./constants.js"
 
 export default {
-  
+
   // acceso a vanvas y al context
   canvas: {},
   ctx: {},
@@ -12,7 +12,7 @@ export default {
 
   // estado de ciclo anterior (milisegundos)
   previousCycleMilliseconds: -1,
-  
+
   // tiempo de ciclo de juego real (seconds)
   deltaTime: 0,
 
@@ -20,6 +20,15 @@ export default {
   frameTimeObj: 0,
 
   // caja de texto para mostrar datos de depuración
-  txtPruebas: {}
+  txtPruebas: {},
+
+  // objeto que guarda los datos de imagen (tileSet)
+  tileSet: {},
+
+  // array que guarda la lista de elementos a cargar
+  assetsToLoad: [],
+
+  // variable que indica el número de elementos cargados
+  assetsLoaded: 0,
 
 }

@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars } from "./initialize.js"
+import { initHTMLElements, initVars, loadAssets } from "./initialize.js"
 import update from "./gameLogic.js"
 import render from "./gameRender.js"
 
@@ -13,6 +13,9 @@ function init() {
   
   // inicializamos los elementos HTML: Canvas, Context, Caja de texto de pruebas
   initHTMLElements()
+
+  // cargamos todos los activos: TILEMAPS, IMAGES, SOUNDS
+  loadAssets()
 
   // inicialización de las variables de juego
   initVars()
