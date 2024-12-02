@@ -1,5 +1,5 @@
 // variables globales
-import { Game } from "./constants"
+import { Game } from "./constants.js"
 
 export default {
   

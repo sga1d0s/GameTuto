@@ -1,5 +1,5 @@
-import globals from "./globals"
-import { Game } from "./constants"
+import globals from "./globals.js"
+import { Game } from "./constants.js"
 
 export default function update() {
 
@@ -18,6 +18,6 @@ export default function update() {
   }
 }
 
-function playeGame(){
+function playGame(){
   // ... a completar
 }

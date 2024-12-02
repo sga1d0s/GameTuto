@@ -1,4 +1,4 @@
-import globals from "./globals..js"
+import globals from "./globals.js"
 import { initHTMLElements, initVars } from "./initialize.js"
 import update from "./gameLogic.js"
 import render from "./gameRender.js"
@@ -30,7 +30,7 @@ function init() {
 function gameLoop (timeStamp) {
   
   // keep requesting new frames
-  window.requestAnimationFrame(gameLoop, global.canvas)
+  window.requestAnimationFrame(gameLoop, globals.canvas)
 
   // tiempo resl de ciclo de ejecución
   const elapsedCycleSeconds = (timeStamp - globals.previousCycleMilliseconds) / 1000
@@ -41,7 +41,7 @@ function gameLoop (timeStamp) {
   // vbariable que corrige el tiempo de frame debido a retrqsos con respecto al tiempo objetivo (frameTimeObj)
   globals.deltaTime += elapsedCycleSeconds
 
-  if (globals.deltaTime >= globals.frameTimeOpj){
+  if (globals.deltaTime >= globals.frameTimeObj){
 
     // update the game logic. gameLogic.js
     update()
@@ -50,7 +50,7 @@ function gameLoop (timeStamp) {
     render()
 
     // corregimos los excesos de tiempo
-    globals.deltaTime -= globals.frameTimeOpj
+    globals.deltaTime -= globals.frameTimeObj
 
   }
 }
