@@ -51,7 +51,7 @@ function renderSprite(sprite) {
 
 // dibunar los sprites
 function drawSprites() {
-  for (let i = 0; i < globals.sprites.length; i++) {
+  for (let i = 0; i < globals.sprites.length; ++i) {
     const sprite = globals.sprites[i];
 
     // TEST: dibuja un rectangulo verde alrededor del sprite

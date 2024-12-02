@@ -37,7 +37,7 @@ function loadAssets() {
   // load the tileSet image
   globals.tileSet = new Image()
   globals.tileSet.addEventListener("load", loadHandler, false)
-  globals.tileSet.src = "./images/player.png"
+  globals.tileSet.src = './images/player.png'
   globals.assetsToLoad.push(globals.tileSet)
 }
 
