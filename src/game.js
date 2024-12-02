@@ -44,7 +44,13 @@ function gameLoop (timeStamp) {
   if (globals.deltaTime >= globals.frameTimeOpj){
 
     // update the game logic. gameLogic.js
-    
+    update()
+
+    // perform the drawing operation. gameRender.js
+    render()
+
+    // corregimos los excesos de tiempo
+    globals.deltaTime -= globals.frameTimeOpj
 
   }
 }
