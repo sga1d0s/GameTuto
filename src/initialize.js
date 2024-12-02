@@ -1,5 +1,8 @@
 import globals from "./globals.js"
-import { Game, FPS } from "./constants.js"
+import { Game, FPS, SpriteID, State } from "./constants.js"
+import Sprite from "./Sprite.js"
+import ImageSet from "./ImageSet.js"
+import Frames from "./Frames.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -48,6 +51,7 @@ function loadHandler() {
     // remove the load event listener
     globals.tileSet.removeEventListener("load", loadHandler, false)
 
+    console.log(globals.assetsToLoad[0]);
     console.log("Assets finish loading")
 
     // start the game
@@ -55,9 +59,28 @@ function loadHandler() {
   }
 }
 
+function initsprites() {
+  initPlayer()
+}
+
+function initPlayer() {
+  // crear las propiedades de las imagenes: xSize, ySize, gridSize, xOffset, yOffset
+  const imageSet = new ImageSet(44, 57, 64, 10, 6)
+
+  // crear los datos de la animación. 8 frames / state
+  const frames = new Frames(8)
+
+  // crear nuestro sprite
+  const player = new Sprite(SpriteID.PLAYER, State.UP, 100, 70, imageSet, frames)
+
+  // añadir el player al array de sprites
+  globals.sprites.push(player)
+}
+
 // exportar funciones
 export {
   initHTMLElements,
   initVars,
   loadAssets,
+  initsprites,
 }

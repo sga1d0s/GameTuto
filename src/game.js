@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars, loadAssets } from "./initialize.js"
+import { initHTMLElements, initVars, loadAssets, initsprites } from "./initialize.js"
 import update from "./gameLogic.js"
 import render from "./gameRender.js"
 
@@ -10,12 +10,15 @@ import render from "./gameRender.js"
 window.onload = init
 
 function init() {
-  
+
   // inicializamos los elementos HTML: Canvas, Context, Caja de texto de pruebas
   initHTMLElements()
 
   // cargamos todos los activos: TILEMAPS, IMAGES, SOUNDS
   loadAssets()
+
+  // iniciar los sprites
+  initsprites()
 
   // inicialización de las variables de juego
   initVars()
@@ -30,8 +33,8 @@ function init() {
 ////////////////////////////////////
 
 // bucle principal de ejecución
-function gameLoop (timeStamp) {
-  
+function gameLoop(timeStamp) {
+
   // keep requesting new frames
   window.requestAnimationFrame(gameLoop, globals.canvas)
 
@@ -44,7 +47,7 @@ function gameLoop (timeStamp) {
   // vbariable que corrige el tiempo de frame debido a retrqsos con respecto al tiempo objetivo (frameTimeObj)
   globals.deltaTime += elapsedCycleSeconds
 
-  if (globals.deltaTime >= globals.frameTimeObj){
+  if (globals.deltaTime >= globals.frameTimeObj) {
 
     // update the game logic. gameLogic.js
     update()

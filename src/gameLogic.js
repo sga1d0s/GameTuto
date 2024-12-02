@@ -4,11 +4,11 @@ import { Game } from "./constants.js"
 export default function update() {
 
   // change what the game is doing based on the game state
-  switch (globals.gameState){
+  switch (globals.gameState) {
     case Game.LOADING:
       console.log("Loading assets...");
       break
-    
+
     case Game.PLAYING:
       playGame()
       break
@@ -18,6 +18,6 @@ export default function update() {
   }
 }
 
-function playGame(){
+function playGame() {
   // ... a completar
 }

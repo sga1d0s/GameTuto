@@ -25,5 +25,34 @@ function drawGame() {
   globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height)
 
   // pintamos los FPS en pantalla
-  globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 30, 30)
+  // globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 30, 30)
+
+  drawSprites()
+}
+
+function renderSprite(sprite) {
+
+  // calcular la posición en el tile a dibujar
+  const xTile = sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset
+  const yTile = sprite.state * sprite.imageSet.gridSize +sprite.imageSet.yOffset
+
+  const xPos = Math.floor(sprite.xPos)
+  const yPos = Math.floor(sprite.yPos)
+
+  // dibujar el nuevo fotograma del sprite en la posiciónadecuada
+  globals.ctx.drawImage(
+    globals.tileSet,
+    xTile, yTile,
+    sprite.imageSet.xSice, sprite.imageSet.ySice,
+    xPos, yPos,
+    sprite.imageSet.xSize, sprite.imageSet.ySice
+  )
+}
+
+// dibunar los sprites
+function drawSprites(){
+  for (let i = 0; i < globals.sprites.length; i++) {
+    const sprite = globals.sprites[i];
+    renderSprite(sprite)
+  }
 }

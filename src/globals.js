@@ -31,4 +31,6 @@ export default {
   // variable que indica el número de elementos cargados
   assetsLoaded: 0,
 
+  // array con los datos de los sprites
+  sprites: [],
 }
