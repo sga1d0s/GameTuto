@@ -34,3 +34,21 @@ export const State = {
   // estados JOKER, KNIGHT
   STILL: 0,
 }
+
+// diferentes TileSets
+export const Tile = {
+  SIZE_64: 0,
+  SIZE_32: 1,
+}
+
+// id de bloque del mapa
+export const Block = {
+  EMPTY: 0,
+  VINES: 1,
+  BROWN_1: 2,
+  BROWN_2: 3,
+  DARK_1: 4,
+  GRAY: 5,
+  CRYSTAL_1: 6,
+  CRYSTAL_2: 7,
+}

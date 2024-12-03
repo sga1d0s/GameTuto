@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { Game } from "./constants.js"
+import { Game, Tile } from "./constants.js"
 
 // funcion que renderiza los graficos
 export default function render() {
@@ -23,10 +23,39 @@ function drawGame() {
   // borramos la pantalla entera
   globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height)
 
-  // pintamos los FPS en pantalla
-  // globals.ctx.fillText("FPS: " + 1 / globals.deltaTime, 30, 30)
+  // dibujar el mapa (nivel)
+  renderMap()
 
+  // dibujar los elementos
   drawSprites()
+}
+
+// función que dibuja el mapa
+function renderMap() {
+  const brickSize = globals.level.imageSet.gridSize
+  const levelData = globals.level.data
+
+  // dibujamos el mapa
+  const num_fil = levelData.length
+  const num_col = levelData[0].length
+
+  for (let i = 0; i < num_fil; i++) {
+    for (let j = 0; j < num_col; j++) {
+      const xTile = (levelData[i][j] - 1) * brickSize
+      const ytile = 0
+      const xPos = j * brickSize
+      const yPos = i * brickSize
+
+      // dibujar el nuevo fotograma del sprite en la posicion adecuada
+      globals.ctx.drawImage(
+        globals.tileSets[Tile.SIZE_32],
+        xTile, ytile,
+        brickSize, brickSize,
+        xPos, yPos,
+        brickSize, brickSize
+      )
+    }
+  }
 }
 
 function renderSprite(sprite) {
@@ -37,14 +66,14 @@ function renderSprite(sprite) {
 
   // calcular la posición en el tile a dibujar
   const xTile = xPosInit + sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset
-  const yTile = yPosInit+ sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset
+  const yTile = yPosInit + sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset
 
   const xPos = Math.floor(sprite.xPos)
   const yPos = Math.floor(sprite.yPos)
 
   // dibujar el nuevo fotograma del sprite en la posiciónadecuada
   globals.ctx.drawImage(
-    globals.tileSet,
+    globals.tileSets[Tile.SIZE_64],
     xTile, yTile,
     sprite.imageSet.xSize, sprite.imageSet.ySize,
     xPos, yPos,

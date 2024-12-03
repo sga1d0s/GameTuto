@@ -20,7 +20,7 @@ export default {
   frameTimeObj: 0,
 
   // objeto que guarda los datos de imagen (tileSet)
-  tileSet: {},
+  tileSets: [],
 
   // array que guarda la lista de elementos a cargar
   assetsToLoad: [],
@@ -32,4 +32,7 @@ export default {
   sprites: [],
 
   cycleRealTime: 0,
+
+  // datos de nivel
+  level: {},
 }

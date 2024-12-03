@@ -3,6 +3,7 @@ import { Game, FPS, SpriteID, State } from "./constants.js"
 import Sprite from "./Sprite.js"
 import ImageSet from "./ImageSet.js"
 import Frames from "./Frames.js"
+import { Level, level1 } from "./Level.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -30,11 +31,21 @@ function initVars() {
 
 // carga de activos: TILEMAPS, IMAGES, SOUNDS
 function loadAssets() {
-  // load the tileSet image
-  globals.tileSet = new Image()
-  globals.tileSet.addEventListener("load", loadHandler, false)
-  globals.tileSet.src = "./images/spritesheet.png"
-  globals.assetsToLoad.push(globals.tileSet)
+
+  let tileSet;
+  // load the spritesheet image
+  tileSet = new Image()
+  tileSet.addEventListener("load", loadHandler, false)
+  tileSet.src = "./images/spritesheet.png"
+  globals.tileSets.push(tileSet)
+  globals.assetsToLoad.push(tileSet)
+
+  // load the bricks image
+  tileSet = new Image()
+  tileSet.addEventListener("load", loadHandler, false)
+  tileSet.src = "./images/bricks.png"
+  globals.tileSets.push(tileSet)
+  globals.assetsToLoad.push(tileSet)
 }
 
 // funcion que se llama cada vez que se carga un archivo
@@ -44,8 +55,10 @@ function loadHandler() {
   // una vez se han cargado todos los activos pasar
   if (globals.assetsLoaded === globals.assetsToLoad.length) {
 
-    // remove the load event listener
-    globals.tileSet.removeEventListener("load", loadHandler, false)
+    for (let i = 0; i < globals.tileSets.length; i++) {
+      // remove the load event listener
+      globals.tileSets[i].removeEventListener("load", loadHandler, false)
+    }
 
     console.log("Assets finish loading")
 
@@ -61,7 +74,7 @@ function initSprites() {
 
 function initPirate() {
   // crear las propiedades de las imagener
-  const imageSet = new ImageSet(5,0,32,47,64,17,16)
+  const imageSet = new ImageSet(5, 0, 32, 47, 64, 17, 16)
 
   // crear los datos de la animación. 8 frames / state
   const frames = new Frames(8)
@@ -74,7 +87,7 @@ function initPirate() {
 }
 
 function initPlayer() {
-  // crear las propiedades de las imagenes: xSize, ySize, gridSize, xOffset, yOffset
+  // crear las propiedades de las imagenes: initFil, initCol, xSize, ySize, gridSize, xOffset, yOffset
   const imageSet = new ImageSet(0, 0, 44, 57, 64, 10, 6)
 
   // crear los datos de la animación. 8 frames / state
@@ -87,10 +100,19 @@ function initPlayer() {
   globals.sprites.push(player)
 }
 
+function initLevel() {
+  // crear las propiedades de las imagenes: initFil, initCol, xSize, ySize, gridSize, xOffset, yOffset
+  const imageSet = new ImageSet(0, 0, 32, 32, 32, 0, 0)
+
+  // creamos y guardamos nuestro nivel
+  globals.level = new Level(level1, imageSet)
+}
+
 // exportar funciones
 export {
   initHTMLElements,
   initVars,
   loadAssets,
   initSprites,
+  initLevel
 }
