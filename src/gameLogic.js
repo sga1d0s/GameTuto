@@ -1,12 +1,12 @@
 import globals from "./globals.js"
-import { Game } from "./constants.js"
+import { Game, SpriteID, State } from "./constants.js"
 
 export default function update() {
 
   // change what the game is doing based on the game state
   switch (globals.gameState) {
     case Game.LOADING:
-      console.log("Loading assets...");
+      console.log("Loading assets...")
       break
 
     case Game.PLAYING:
@@ -18,6 +18,56 @@ export default function update() {
   }
 }
 
-function playGame() {
-  // ... a completar
+function updatePirate(sprite) {
+  // actualizar el estado de las variables del pirata
+  sprite.xPos = 150
+  sprite.yPos = 130
+
+  sprite.state = State.LEFT_2
+
+  sprite.frames.frameCounter = 3
 }
+
+function updatePlayer(sprite) {
+  // actualizar el estado de las variables del pirata
+  sprite.xPos = 10
+  sprite.yPos = 50
+
+  sprite.state = State.LEFT
+
+  sprite.frames.frameCounter = 2
+}
+
+function playGame() {
+  updateSprites()
+}
+
+function updateSprites() {
+  for (let i = 0; i < globals.sprites.length; i++) {
+    const sprite = globals.sprites[i]
+    updateSprite(sprite)
+  }
+}
+
+// actualiza cada tipo de sprite
+function updateSprite(sprite) {
+  const type = sprite.id
+
+  switch (type) {
+
+    // caso jugador
+    case SpriteID.PLAYER:
+      updatePlayer(sprite)
+      break
+
+    // caso pirata
+    case SpriteID.PIRATE:
+      updatePirate(sprite)
+      break
+
+    // caso del enemigo
+    default:
+      break
+  }
+}
+

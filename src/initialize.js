@@ -33,7 +33,7 @@ function loadAssets() {
   // load the tileSet image
   globals.tileSet = new Image()
   globals.tileSet.addEventListener("load", loadHandler, false)
-  globals.tileSet.src = "./images/player.png"
+  globals.tileSet.src = "./images/spritesheet.png"
   globals.assetsToLoad.push(globals.tileSet)
 }
 
@@ -56,11 +56,26 @@ function loadHandler() {
 
 function initSprites() {
   initPlayer()
+  initPirate()
+}
+
+function initPirate() {
+  // crear las propiedades de las imagener
+  const imageSet = new ImageSet(5,0,32,47,64,17,16)
+
+  // crear los datos de la animación. 8 frames / state
+  const frames = new Frames(8)
+
+  // crear nuestro sprite
+  const pirate = new Sprite(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames)
+
+  // añadir el pirate al array de sprites
+  globals.sprites.push(pirate)
 }
 
 function initPlayer() {
   // crear las propiedades de las imagenes: xSize, ySize, gridSize, xOffset, yOffset
-  const imageSet = new ImageSet(44, 57, 64, 10, 6)
+  const imageSet = new ImageSet(0, 0, 44, 57, 64, 10, 6)
 
   // crear los datos de la animación. 8 frames / state
   const frames = new Frames(8)

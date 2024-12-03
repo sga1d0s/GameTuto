@@ -30,4 +30,6 @@ export default {
 
   // array con los datos de los sprites
   sprites: [],
+
+  cycleRealTime: 0,
 }

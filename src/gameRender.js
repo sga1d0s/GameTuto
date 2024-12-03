@@ -31,9 +31,13 @@ function drawGame() {
 
 function renderSprite(sprite) {
 
+  // calcular la posicion del tile de inicio
+  const xPosInit = sprite.imageSet.initCol * sprite.imageSet.gridSize
+  const yPosInit = sprite.imageSet.initFil * sprite.imageSet.gridSize
+
   // calcular la posición en el tile a dibujar
-  const xTile = sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset
-  const yTile = sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset
+  const xTile = xPosInit + sprite.frames.frameCounter * sprite.imageSet.gridSize + sprite.imageSet.xOffset
+  const yTile = yPosInit+ sprite.state * sprite.imageSet.gridSize + sprite.imageSet.yOffset
 
   const xPos = Math.floor(sprite.xPos)
   const yPos = Math.floor(sprite.yPos)
@@ -44,7 +48,7 @@ function renderSprite(sprite) {
     xTile, yTile,
     sprite.imageSet.xSize, sprite.imageSet.ySize,
     xPos, yPos,
-    sprite.imageSet.xSize, sprite.imageSet.ySize
+    sprite.imageSet.xSize, sprite.imageSet.ySize,
   )
 }
 

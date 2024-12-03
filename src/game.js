@@ -1,6 +1,7 @@
 import globals from "./globals.js"
 import { initHTMLElements, initVars, loadAssets, initSprites } from "./initialize.js"
 import update from "./gameLogic.js"
+import updateSprite from "./gameLogic.js"
 import render from "./gameRender.js"
 
 ////////////////////////////////////
@@ -28,7 +29,7 @@ function init() {
 }
 
 ////////////////////////////////////
-// GAME EXECUTE
+//           GAME EXECUTE         //
 ////////////////////////////////////
 
 // bucle principal de ejecución
@@ -46,16 +47,22 @@ function gameLoop(timeStamp) {
   // vbariable que corrige el tiempo de frame debido a retrqsos con respecto al tiempo objetivo (frameTimeObj)
   globals.deltaTime += elapsedCycleSeconds
 
-  if (globals.deltaTime >= globals.frameTimeObj) {
+  // CHANGES: CORRECTIONS
+  globals.cycleRealTime += elapsedCycleSeconds
+
+  if (globals.cycleRealTime >= globals.frameTimeObj) {
 
     // update the game logic. gameLogic.js
     update()
 
+    updateSprite()
+
     // perform the drawing operation. gameRender.js
     render()
 
-    // corregimos los excesos de tiempo
-    globals.deltaTime -= globals.frameTimeObj
-
+    //CHANGES:
+    //Corregimos los excesos de tiempo
+    globals.cycleRealTime -= globals.frameTimeObj
+    globals.deltaTime = 0
   }
 }
