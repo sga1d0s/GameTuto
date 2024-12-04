@@ -21,7 +21,6 @@ function initHTMLElements() {
 
 // funcion que inicializa las variables del juego
 function initVars() {
-
   // inicializamos las variables de gestión de tiempo
   globals.previousCycleMilliseconds = 0
   globals.deltaTime = 0
@@ -72,6 +71,21 @@ function loadHandler() {
 function initSprites() {
   initPlayer()
   initPirate()
+  initJoker()
+}
+
+function initJoker() {
+  // crear las propiedades de las imagenes: initFil, initCol, xSize, ySize, gridSize, xOffset, yOffset
+  const imageSet = new ImageSet(4, 0, 44, 57, 64, 10, 6)
+
+  // crear los datos de la animación. 8 frames / state
+  const frames = new Frames(3)
+
+  // crear nuestro sprite
+  const joker = new Sprite(SpriteID.JOKER, State.STILL, 100, 70, imageSet, frames)
+
+  // añadir el player al array de sprites
+  globals.sprites.push(joker)
 }
 
 function initPirate() {

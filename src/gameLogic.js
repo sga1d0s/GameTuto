@@ -18,6 +18,16 @@ export default function update() {
   }
 }
 
+function updateJoker(sprite) {
+  // actualizar el estado de las variables del pirata
+  sprite.xPos = 55
+  sprite.yPos = 7
+
+  sprite.state = State.STILL
+
+  sprite.frames.frameCounter = 0
+}
+
 function updatePirate(sprite) {
   // actualizar el estado de las variables del pirata
   sprite.xPos = 125
@@ -63,6 +73,11 @@ function updateSprite(sprite) {
     // caso pirata
     case SpriteID.PIRATE:
       updatePirate(sprite)
+      break
+
+    // caso pirata
+    case SpriteID.JOKER:
+      updateJoker(sprite)
       break
 
     // caso del enemigo
