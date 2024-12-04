@@ -6,6 +6,8 @@ export default {
   // acceso a canvas y al context
   canvas: {},
   ctx: {},
+  canvasUHD: {},
+  ctxUHD: {},
 
   // estado del juego
   gameState: Game.INVALID,

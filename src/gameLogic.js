@@ -20,8 +20,8 @@ export default function update() {
 
 function updatePirate(sprite) {
   // actualizar el estado de las variables del pirata
-  sprite.xPos = 150
-  sprite.yPos = 130
+  sprite.xPos = 125
+  sprite.yPos = 113
 
   sprite.state = State.LEFT_2
 
@@ -30,8 +30,8 @@ function updatePirate(sprite) {
 
 function updatePlayer(sprite) {
   // actualizar el estado de las variables del pirata
-  sprite.xPos = 10
-  sprite.yPos = 50
+  sprite.xPos = 55
+  sprite.yPos = 137
 
   sprite.state = State.LEFT
 

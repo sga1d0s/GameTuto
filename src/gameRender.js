@@ -20,14 +20,18 @@ export default function render() {
 }
 
 function drawGame() {
-  // borramos la pantalla entera
+  // borramos la pantalla entera y UHD
   globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height)
+  globals.ctxUHD.clearRect(0, 0, globals.canvasUHD.width, globals.canvasUHD.height)
 
   // dibujar el mapa (nivel)
   renderMap()
 
   // dibujar los elementos
   drawSprites()
+
+  // dibujamos el UHD
+  renderUHD()
 }
 
 // función que dibuja el mapa
@@ -94,7 +98,6 @@ function drawSprites() {
 }
 
 // funcion para dibujar un rectangulo y así ajustar el sprite
-
 function drawSpriteRectangle(sprite) {
   // datos del sprite
   const x1 = Math.floor(sprite.xPos)
@@ -102,6 +105,48 @@ function drawSpriteRectangle(sprite) {
   const w1 = sprite.imageSet.xSize
   const h1 = sprite.imageSet.ySize
 
-  globals.ctx.fillStyle = "green"
-  globals.ctx.fillRect(x1, y1, w1, h1)
+  // dibujo en verde
+  // globals.ctx.fillStyle = "green"
+  // globals.ctx.fillRect(x1, y1, w1, h1)
+}
+
+// funcion para dibujar los elementos del UHD
+function renderUHD() {
+  // TEST: datos hardcodeados
+  const score = 1500
+  const highScore = 130000
+  const life = 40
+  const time = 3000
+
+  // draw score
+  globals.ctxUHD.font = '8px emulogic'
+  globals.ctxUHD.fillStyle = 'lightblue'
+  globals.ctxUHD.fillText("SCORE", 8, 8)
+  globals.ctxUHD.fillStyle = 'lightgray'
+  globals.ctxUHD.fillText(" " + score, 8, 16)
+
+  // draw HIGH score
+  globals.ctxUHD.fillStyle = 'lightblue'
+  globals.ctxUHD.fillText("HIGH SCORE", 72, 8)
+  globals.ctxUHD.fillStyle = 'lightgray'
+  globals.ctxUHD.fillText(" " + highScore, 72, 16)
+
+  // draw life
+  globals.ctxUHD.fillStyle = 'lightblue'
+  globals.ctxUHD.fillText("LIFE", 168, 8)
+  globals.ctxUHD.fillStyle = 'lightgray'
+  globals.ctxUHD.fillText(168, 9, life, 8)
+
+  // round corners. (Remove 1 pixel per corner)
+  globals.ctxUHD.fillStyle = 'black'
+  globals.ctxUHD.fillRect(168, 9, 1, 1)
+  globals.ctxUHD.fillRect(168, 15, 1, 1)
+  globals.ctxUHD.fillRect(168 + life - 1, 9, 1, 1)
+  globals.ctxUHD.fillRect(168 + life - 1, 15, 1, 1)
+
+  // draw time
+  globals.ctxUHD.fillStyle = 'lightblue'
+  globals.ctxUHD.fillText("TIME", 224, 8)
+  globals.ctxUHD.fillStyle = 'lightgray'
+  globals.ctxUHD.fillText(time, 224, 16)
 }

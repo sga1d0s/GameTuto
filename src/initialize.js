@@ -7,11 +7,13 @@ import { Level, level1 } from "./Level.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
-  // canvas
+  // canvas y context Screen
   globals.canvas = document.getElementById('gameScreen')
-
-  // context
   globals.ctx = globals.canvas.getContext('2d')
+
+  // canvas y context UHD
+  globals.canvasUHD = document.getElementById('gameUHD')
+  globals.ctxUHD = globals.canvasUHD.getContext('2d')
 
   // eliminación del Anti-Aliasing
   globals.ctx.imageSmoothingEnabled = false
