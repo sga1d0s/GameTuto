@@ -50,12 +50,33 @@ function updatePlayer(sprite) {
 
 function playGame() {
   updateSprites()
+  updateGameTime()
+  updateLevelTime()
 }
 
 function updateSprites() {
   for (let i = 0; i < globals.sprites.length; i++) {
     const sprite = globals.sprites[i]
     updateSprite(sprite)
+  }
+}
+
+function updateGameTime() {
+  // incrementar el contador
+  globals.gameTime += globals.deltaTime
+}
+
+// actualizadión del timer
+function updateLevelTime() {
+  // incrementamos el contador de cambio de valor
+  globals.levelTime.timeChangeCounter += globals.deltaTime
+
+  // si ha pasado el tiempo necesario, cambiamos el valor del timer
+  if (globals.levelTime.timeChangeCounter > globals.levelTime.timeChangeValue) {
+    globals.levelTime.value--
+
+    // restear timeChangecounter
+    globals.levelTime.timeChangeCounter = 0
   }
 }
 

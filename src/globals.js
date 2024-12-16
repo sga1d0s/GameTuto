@@ -37,4 +37,10 @@ export default {
 
   // datos de nivel
   level: {},
+
+  // tiempo de juego
+  gameTime: -1,
+
+  // temporización nivel
+  levelTime: {},
 }

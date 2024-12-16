@@ -18,7 +18,7 @@
   image-rendering: crisp-edges;
 }
 
-#font-face{
+@font-face{
   font-family: emulogic;
   src: url("../fonts/emulogic.ttf");
 }

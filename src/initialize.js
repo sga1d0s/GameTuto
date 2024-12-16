@@ -4,6 +4,7 @@ import Sprite from "./Sprite.js"
 import ImageSet from "./ImageSet.js"
 import Frames from "./Frames.js"
 import { Level, level1 } from "./Level.js"
+import Timer from "./Timer.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -28,6 +29,9 @@ function initVars() {
 
   // inicializamos el estado del juego
   globals.gameState = Game.LOADING
+
+  // iniciamos el contador del juego
+  globals.gameTime = 0
 }
 
 // carga de activos: TILEMAPS, IMAGES, SOUNDS
@@ -66,6 +70,11 @@ function loadHandler() {
     // start the game
     globals.gameState = Game.PLAYING
   }
+}
+
+function initTimers(){
+  // creamos timer de valor 200, con cambios cada 0.5 segundos
+  globals.levelTime = new Timer(200, 0.5)
 }
 
 function initSprites() {
@@ -130,5 +139,6 @@ export {
   initVars,
   loadAssets,
   initSprites,
-  initLevel
+  initLevel,
+  initTimers
 }
