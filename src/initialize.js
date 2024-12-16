@@ -5,6 +5,7 @@ import ImageSet from "./ImageSet.js"
 import Frames from "./Frames.js"
 import { Level, level1 } from "./Level.js"
 import Timer from "./Timer.js"
+import Physics from "./Physics.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -102,10 +103,13 @@ function initPirate() {
   const imageSet = new ImageSet(5, 0, 32, 47, 64, 17, 16)
 
   // crear los datos de la animación. 8 frames / state
-  const frames = new Frames(8)
+  const frames = new Frames(8, 5)
+
+  // crear objeto physics con el vLimit = 40 pixels second
+  const physics = new Physics(40)
 
   // crear nuestro sprite
-  const pirate = new Sprite(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames)
+  const pirate = new Sprite(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames, physics)
 
   // añadir el pirate al array de sprites
   globals.sprites.push(pirate)

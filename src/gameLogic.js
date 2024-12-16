@@ -28,7 +28,7 @@ function updateJoker(sprite) {
   sprite.frames.frameCounter = 0
 }
 
-function updatePirate(sprite) {
+/* function updatePirate(sprite) {
   // actualizar el estado de las variables del pirata
   sprite.xPos = 125
   sprite.yPos = 113
@@ -36,6 +36,44 @@ function updatePirate(sprite) {
   sprite.state = State.LEFT_2
 
   sprite.frames.frameCounter = 3
+} */
+
+// funcion que actualiza el pirata
+function updatePirate(sprite) {
+
+  // máquina de estados del pirata
+  switch (sprite.state) {
+
+    case State.RIGHT_2:
+      // si semueve a la derecha asignamos velocidad en X positiva
+      sprite.physics.vx = sprite.physics.vLimit
+      break
+
+    case State.LEFT_2:
+      // si se mueve a la izquierda asignamos velocidad en X negativa
+      sprite.physics.vx = -sprite.physics.vLimit
+      break
+
+    default:
+      console.error("Error: State invalid")
+  }
+
+  // calcular distancia que se mueve (X = Y + Vt)
+  sprite.xPos += sprite.physics.vx * globals.deltaTime
+
+  updateAnimationFrame(sprite)
+}
+
+function updateAnimationFrame(sprite) {
+  // aumentar el contador de tiempo entre frames
+  sprite.frames.frameChangeCounter++
+
+  // si hemos llegado al maximo de frames reiniciamos el contador (animación cíclica)
+  if (sprite.frames.frameChangeCounter === sprite.frames.speed) {
+    // cambiar de frame y reseseamos el contador de cambio de frame
+    sprite.frames.frameCounter++
+    sprite.frames.frameChangeCounter = 0
+  }
 }
 
 function updatePlayer(sprite) {
