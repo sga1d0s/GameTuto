@@ -88,7 +88,7 @@ function updateDirectionRandom(sprite) {
     sprite.directionChangeCounter = 0
 
     // actualizar el tiempo de cambio de dirección aleatoriamente, entre 1 y 8 segundos
-    sprite.maxTimeToChanteDirection = Math.floor(Math.random() * 8) + 1
+    sprite.maxTimeToChangeDirection = Math.floor(Math.random() * 8) + 1
 
     // cambiar la dirección
     swapDirection(sprite)
