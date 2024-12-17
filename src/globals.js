@@ -43,4 +43,7 @@ export default {
 
   // temporización nivel
   levelTime: {},
+
+  // objeto que guarda el estado de la tecla pulsada
+  action: {},
 }

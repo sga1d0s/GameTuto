@@ -6,6 +6,7 @@ import Frames from "./Frames.js"
 import { Level, level1 } from "./Level.js"
 import Timer from "./Timer.js"
 import Physics from "./Physics.js"
+import { keyupHandler, keydownHandler } from "./events.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -23,16 +24,24 @@ function initHTMLElements() {
 
 // funcion que inicializa las variables del juego
 function initVars() {
-  // inicializamos las variables de gestión de tiempo
+  // inicializar las variables de gestión de tiempo
   globals.previousCycleMilliseconds = 0
   globals.deltaTime = 0
   globals.frameTimeObj = 1 / FPS // frame time in seconds
 
-  // inicializamos el estado del juego
+  // inicializar el estado del juego
   globals.gameState = Game.LOADING
 
-  // iniciamos el contador del juego
+  // iniciar el contador del juego
   globals.gameTime = 0
+
+  // iniciar el estado de las acciones
+  globals.action = {
+    moveLeft: false,
+    moveRight: false,
+    moveUp: false,
+    moveDown: false,
+  }
 }
 
 // carga de activos: TILEMAPS, IMAGES, SOUNDS
@@ -84,9 +93,15 @@ function initSprites() {
   initJoker()
 }
 
+function initEvents() {
+  // add the keyboard event listeners
+  window.addEventListener("keydown", keydownHandler, false)
+  window.addEventListener("keyup", keyupHandler, false)
+}
+
 function initJoker() {
   // crear las propiedades de las imagenes: initFil, initCol, xSize, ySize, gridSize, xOffset, yOffset
-  const imageSet = new ImageSet(4, 0, 44, 57, 64, 10, 6)
+  const imageSet = new ImageSet(8, 0, 44, 57, 64, 10, 6)
 
   // crear los datos de la animación. 8 frames / state
   const frames = new Frames(3)
@@ -100,7 +115,7 @@ function initJoker() {
 
 function initPirate() {
   // crear las propiedades de las imagener
-  const imageSet = new ImageSet(5, 0, 32, 47, 64, 17, 16)
+  const imageSet = new ImageSet(9, 0, 32, 47, 64, 17, 16)
 
   // crear los datos de la animación. 8 frames / state
   const frames = new Frames(8, 5)
@@ -122,10 +137,13 @@ function initPlayer() {
   const imageSet = new ImageSet(0, 0, 44, 57, 64, 10, 6)
 
   // crear los datos de la animación. 8 frames / state
-  const frames = new Frames(8)
+  const frames = new Frames(8, 5)
+
+  // crear nuestro objeto physics con vLimit 40 pixels por segundo
+  const physics = new Physics(40)
 
   // crear nuestro sprite
-  const player = new Sprite(SpriteID.PLAYER, State.UP, 100, 70, imageSet, frames)
+  const player = new Sprite(SpriteID.PLAYER, State.STILL_RIGHT, 100, 70, imageSet, frames, physics)
 
   // añadir el player al array de sprites
   globals.sprites.push(player)
@@ -146,5 +164,6 @@ export {
   loadAssets,
   initSprites,
   initLevel,
-  initTimers
+  initTimers,
+  initEvents
 }

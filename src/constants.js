@@ -26,6 +26,10 @@ export const State = {
   LEFT: 1,
   DOWN: 2,
   RIGHT: 3,
+  STILL_UP: 4,
+  STILL_LEFT: 5,
+  STILL_DOWN: 6,
+  STILL_RIGHT: 7,
 
   // estados PIRATE
   LEFT_2: 0,
@@ -51,4 +55,11 @@ export const Block = {
   GRAY: 5,
   CRYSTAL_1: 6,
   CRYSTAL_2: 7,
+}
+
+export const Key = {
+  UP: 38,
+  DOWN: 40,
+  RIGHT: 39,
+  LEFT: 37,
 }

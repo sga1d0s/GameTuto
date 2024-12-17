@@ -65,19 +65,33 @@ function updatePirate(sprite) {
 }
 
 function updateAnimationFrame(sprite) {
-  // aumentar el contador de tiempo entre frames
-  sprite.frames.frameChangeCounter++
 
-  // si hemos llegado al maximo de frames reiniciamos el contador (animación cíclica)
-  if (sprite.frames.frameChangeCounter === sprite.frames.speed) {
-    // cambiar de frame y reseseamos el contador de cambio de frame
-    sprite.frames.frameCounter++
-    sprite.frames.frameChangeCounter = 0
-  }
+  switch (sprite.state) {
+    // reduce los el contador de frames si está parado
+    case State.STILL_UP:
+    case State.STILL_LEFT:
+    case State.STILL_DOWN:
+    case State.STILL_RIGHT:
+      sprite.frames.frameCounter = 0
+      sprite.frames.frameChangeCounter = 0
+      break;
 
-  // si hemos llegado al máximo de frames reiniciamos el contador
-  if (sprite.frames.frameCounter === sprite.frames.framesPerState) {
-    sprite.frames.frameCounter = 0
+    default:
+      // aumentar el contador de tiempo entre frames
+      sprite.frames.frameChangeCounter++
+
+      // si hemos llegado al maximo de frames reiniciamos el contador (animación cíclica)
+      if (sprite.frames.frameChangeCounter === sprite.frames.speed) {
+        // cambiar de frame y reseseamos el contador de cambio de frame
+        sprite.frames.frameCounter++
+        sprite.frames.frameChangeCounter = 0
+      }
+
+      // si hemos llegado al máximo de frames reiniciamos el contador
+      if (sprite.frames.frameCounter === sprite.frames.framesPerState) {
+        sprite.frames.frameCounter = 0
+      }
+      break;
   }
 }
 
@@ -102,13 +116,47 @@ function updateDirectionRandom(sprite) {
 }
 
 function updatePlayer(sprite) {
-  // actualizar el estado de las variables del pirata
-  sprite.xPos = 55
-  sprite.yPos = 137
+  // lectura de teclado. Asignamos dirección de tecla
+  readKeyboardAndAssignState(sprite)
 
-  sprite.state = State.LEFT
+  switch (sprite.state) {
+    case State.UP:
+      // si se mueve hacia arriba asignamos vy (-)
+      sprite.physics.vx = 0
+      sprite.physics.vy = -sprite.physics.vLimit
+      break;
 
-  sprite.frames.frameCounter = 2
+    case State.DOWN:
+      // si se mueve hacia abajo asignamos vy (+)
+      sprite.physics.vx = 0
+      sprite.physics.vy = sprite.physics.vLimit
+      break;
+
+    case State.RIGHT:
+      // si se mueve hacia derecha asignamos vy (+)
+      sprite.physics.vx = sprite.physics.vLimit
+      sprite.physics.vy = 0
+      break;
+
+    case State.LEFT:
+      // si se mueve hacia izquierda asignamos vy (-)
+      sprite.physics.vx = -sprite.physics.vLimit
+      sprite.physics.vy = 0
+      break;
+
+    default:
+      // caso de estar parado
+      sprite.physics.vx = 0
+      sprite.physics.vy = 0
+      break;
+  }
+
+  // calculamos distancia que se mueve (X = X + Vt)
+  sprite.xPos += sprite.physics.vx * globals.deltaTime
+  sprite.yPos += sprite.physics.vy * globals.deltaTime
+
+  // actualizamos la animación
+  updateAnimationFrame(sprite)
 }
 
 function updateSprites() {
@@ -173,6 +221,19 @@ function calculateCollisionWithBorders(sprite) {
     isCollision = true
   }
   return isCollision
+}
+
+function readKeyboardAndAssignState(sprite) {
+  sprite.state = globals.action.moveLeft ? State.LEFT :
+    globals.action.moveRight ? State.RIGHT :
+      globals.action.moveUp ? State.UP :
+        globals.action.moveDown ? State.DOWN :
+          sprite.state === State.LEFT ? State.STILL_LEFT :
+            sprite.state === State.RIGHT ? State.STILL_RIGHT :
+              sprite.state === State.UP ? State.STILL_UP :
+                sprite.state === State.DOWN ? State.STILL_DOWN :
+                  sprite.state
+
 }
 
 function playGame() {
