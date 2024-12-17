@@ -58,7 +58,8 @@ function updatePirate(sprite) {
   updateDirectionRandom(sprite)
 
   const isCollision = calculateCollisionWithBorders(sprite)
-  if (isCollision){
+
+  if (isCollision) {
     swapDirection(sprite)
   }
 }
@@ -72,6 +73,11 @@ function updateAnimationFrame(sprite) {
     // cambiar de frame y reseseamos el contador de cambio de frame
     sprite.frames.frameCounter++
     sprite.frames.frameChangeCounter = 0
+  }
+
+  // si hemos llegado al máximo de frames reiniciamos el contador
+  if (sprite.frames.frameCounter === sprite.frames.framesPerState) {
+    sprite.frames.frameCounter = 0
   }
 }
 
