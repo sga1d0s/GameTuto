@@ -56,6 +56,11 @@ function updatePirate(sprite) {
 
   // cambio de dirección
   updateDirectionRandom(sprite)
+
+  const isCollision = calculateCollisionWithBorders(sprite)
+  if (isCollision){
+    swapDirection(sprite)
+  }
 }
 
 function updateAnimationFrame(sprite) {
@@ -70,20 +75,20 @@ function updateAnimationFrame(sprite) {
   }
 }
 
-function swapDirection(sprite){
+function swapDirection(sprite) {
   sprite.state = sprite.state === State.RIGHT_2 ? State.LEFT_2 : State.RIGHT_2
 }
 
-function updateDirectionRandom(sprite){
+function updateDirectionRandom(sprite) {
   // incrementar el tiempo para cambio de dirección
   sprite.directionChangeCounter += globals.deltaTime
-  
-  if(sprite.directionChangeCounter > sprite.maxTimeToChangeDirection){
+
+  if (sprite.directionChangeCounter > sprite.maxTimeToChangeDirection) {
     // resetear el contador
     sprite.directionChangeCounter = 0
 
     // actualizar el tiempo de cambio de dirección aleatoriamente, entre 1 y 8 segundos
-    sprite.maxTimeToChanteDirection = Math.floor(Math.random() * 8) +1
+    sprite.maxTimeToChanteDirection = Math.floor(Math.random() * 8) + 1
 
     // cambiar la dirección
     swapDirection(sprite)
@@ -151,6 +156,17 @@ function updateSprite(sprite) {
     default:
       break
   }
+}
+
+function calculateCollisionWithBorders(sprite) {
+  let isCollision = false
+  // colision con el borde derecho de la pantalla
+  if (sprite.xPos + sprite.imageSet.xSize > globals.canvas.width) {
+    isCollision = true
+  } else if (sprite.xPos < 0) {
+    isCollision = true
+  }
+  return isCollision
 }
 
 function playGame() {
