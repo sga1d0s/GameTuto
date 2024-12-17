@@ -1,6 +1,6 @@
 import globals from "./globals.js"
 import { Game, FPS, SpriteID, State } from "./constants.js"
-import Sprite from "./Sprite.js"
+import Sprite, { Pirate } from "./Sprite.js"
 import ImageSet from "./ImageSet.js"
 import Frames from "./Frames.js"
 import { Level, level1 } from "./Level.js"
@@ -73,7 +73,7 @@ function loadHandler() {
   }
 }
 
-function initTimers(){
+function initTimers() {
   // creamos timer de valor 200, con cambios cada 0.5 segundos
   globals.levelTime = new Timer(200, 0.5)
 }
@@ -108,8 +108,10 @@ function initPirate() {
   // crear objeto physics con el vLimit = 40 pixels second
   const physics = new Physics(40)
 
+  const initTimeToChangeDirection = Math.floor(Math.random() * 3) + 1
+
   // crear nuestro sprite
-  const pirate = new Sprite(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames, physics)
+  const pirate = new Pirate(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames, physics, initTimeToChangeDirection)
 
   // añadir el pirate al array de sprites
   globals.sprites.push(pirate)

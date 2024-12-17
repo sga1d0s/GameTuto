@@ -28,16 +28,6 @@ function updateJoker(sprite) {
   sprite.frames.frameCounter = 0
 }
 
-/* function updatePirate(sprite) {
-  // actualizar el estado de las variables del pirata
-  sprite.xPos = 125
-  sprite.yPos = 113
-
-  sprite.state = State.LEFT_2
-
-  sprite.frames.frameCounter = 3
-} */
-
 // funcion que actualiza el pirata
 function updatePirate(sprite) {
 
@@ -58,10 +48,14 @@ function updatePirate(sprite) {
       console.error("Error: State invalid")
   }
 
-  // calcular distancia que se mueve (X = Y + Vt)
+  // calcular distancia que se mueve (X = X + Vt)
   sprite.xPos += sprite.physics.vx * globals.deltaTime
 
+  // acualizar la animación
   updateAnimationFrame(sprite)
+
+  // cambio de dirección
+  updateDirectionRandom(sprite)
 }
 
 function updateAnimationFrame(sprite) {
@@ -76,6 +70,26 @@ function updateAnimationFrame(sprite) {
   }
 }
 
+function swapDirection(sprite){
+  sprite.state = sprite.state === State.RIGHT_2 ? State.LEFT_2 : State.RIGHT_2
+}
+
+function updateDirectionRandom(sprite){
+  // incrementar el tiempo para cambio de dirección
+  sprite.directionChangeCounter += globals.deltaTime
+  
+  if(sprite.directionChangeCounter > sprite.maxTimeToChangeDirection){
+    // resetear el contador
+    sprite.directionChangeCounter = 0
+
+    // actualizar el tiempo de cambio de dirección aleatoriamente, entre 1 y 8 segundos
+    sprite.maxTimeToChanteDirection = Math.floor(Math.random() * 8) +1
+
+    // cambiar la dirección
+    swapDirection(sprite)
+  }
+}
+
 function updatePlayer(sprite) {
   // actualizar el estado de las variables del pirata
   sprite.xPos = 55
@@ -84,12 +98,6 @@ function updatePlayer(sprite) {
   sprite.state = State.LEFT
 
   sprite.frames.frameCounter = 2
-}
-
-function playGame() {
-  updateSprites()
-  updateGameTime()
-  updateLevelTime()
 }
 
 function updateSprites() {
@@ -145,3 +153,8 @@ function updateSprite(sprite) {
   }
 }
 
+function playGame() {
+  updateSprites()
+  updateGameTime()
+  updateLevelTime()
+}
