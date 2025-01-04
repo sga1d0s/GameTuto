@@ -149,7 +149,7 @@ function renderUHD() {
   globals.ctxUHD.fillStyle = 'lightblue'
   globals.ctxUHD.fillText("LIFE", 168, 8)
   globals.ctxUHD.fillStyle = 'lightgray'
-  globals.ctxUHD.fillRect(168, 9, life, 8)
+  globals.ctxUHD.fillText(" " + globals.life, 168, 16)
 
   // round corners. (Remove 1 pixel per corner)
   globals.ctxUHD.fillStyle = 'black'

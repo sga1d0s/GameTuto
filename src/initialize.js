@@ -43,6 +43,9 @@ function initVars() {
     moveUp: false,
     moveDown: false,
   }
+
+  // variable de vida de player
+  globals.life = 400
 }
 
 // carga de activos: TILEMAPS, IMAGES, SOUNDS

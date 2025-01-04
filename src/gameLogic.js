@@ -237,11 +237,26 @@ function readKeyboardAndAssignState(sprite) {
 
 }
 
+// actualiza la vida por colision
+function updateLife(){
+  for (let i = 1; i < globals.sprites.length; i++) {
+    const sprite = globals.sprites[i]   
+    
+    // reducimos si hay colision
+    if (sprite.isCollidingWithPlayer) {
+      globals.life--
+    }
+  }
+}
+
 function playGame() {
   // actualiza la física de sprites
   updateSprites()
   // colisiones
   detectCollisions()
+  // actualizar la lógica del juego
   updateGameTime()
   updateLevelTime()
+  updateLife()
+
 }

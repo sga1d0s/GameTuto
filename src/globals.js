@@ -46,4 +46,7 @@ export default {
 
   // objeto que guarda el estado de la tecla pulsada
   action: {},
+
+  // life
+  life: 0,
 }
