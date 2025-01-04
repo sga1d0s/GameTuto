@@ -1,5 +1,6 @@
 import globals from "./globals.js"
 import { Game, SpriteID, State } from "./constants.js"
+import detectCollisions from "./collisions.js"
 
 export default function update() {
 
@@ -237,7 +238,10 @@ function readKeyboardAndAssignState(sprite) {
 }
 
 function playGame() {
+  // actualiza la física de sprites
   updateSprites()
+  // colisiones
+  detectCollisions()
   updateGameTime()
   updateLevelTime()
 }

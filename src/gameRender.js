@@ -114,11 +114,6 @@ function drawSpriteRectangle(sprite) {
 }
 
 function drawHitBox(sprite) {
-  if (!sprite || !sprite.hitBox) {
-      console.error("El objeto sprite o su hitBox no están definidos:", sprite);
-      return;
-  }
-
   // datos del sprite
   const x1 = Math.floor(sprite.xPos) + Math.floor(sprite.hitBox.xOffset);
   const y1 = Math.floor(sprite.yPos) + Math.floor(sprite.hitBox.yOffset);
