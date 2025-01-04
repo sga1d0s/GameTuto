@@ -91,9 +91,12 @@ function drawSprites() {
     const sprite = globals.sprites[i];
 
     // TEST: dibuja un rectangulo verde alrededor del sprite
-    drawSpriteRectangle(sprite)
+    // drawSpriteRectangle(sprite)
 
     renderSprite(sprite)
+
+    // TEST: dibuja el hitbox
+    drawHitBox(sprite)
   }
 }
 
@@ -106,8 +109,24 @@ function drawSpriteRectangle(sprite) {
   const h1 = sprite.imageSet.ySize
 
   // dibujo en verde
-  // globals.ctx.fillStyle = "green"
-  // globals.ctx.fillRect(x1, y1, w1, h1)
+  globals.ctx.fillStyle = "green"
+  globals.ctx.fillRect(x1, y1, w1, h1)
+}
+
+function drawHitBox(sprite) {
+  if (!sprite || !sprite.hitBox) {
+      console.error("El objeto sprite o su hitBox no están definidos:", sprite);
+      return;
+  }
+
+  // datos del sprite
+  const x1 = Math.floor(sprite.xPos) + Math.floor(sprite.hitBox.xOffset);
+  const y1 = Math.floor(sprite.yPos) + Math.floor(sprite.hitBox.yOffset);
+  const w1 = sprite.hitBox.xSize;
+  const h1 = sprite.hitBox.ySize;
+
+  globals.ctx.strokeStyle = "red";
+  globals.ctx.strokeRect(x1, y1, w1, h1);
 }
 
 // funcion para dibujar los elementos del UHD

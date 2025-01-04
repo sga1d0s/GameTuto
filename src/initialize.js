@@ -7,6 +7,7 @@ import { Level, level1 } from "./Level.js"
 import Timer from "./Timer.js"
 import Physics from "./Physics.js"
 import { keyupHandler, keydownHandler } from "./events.js"
+import HitBox from "./HitBox.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -123,10 +124,13 @@ function initPirate() {
   // crear objeto physics con el vLimit = 40 pixels second
   const physics = new Physics(40)
 
+  // creamos objeto hitbox
+  const hitBox = new HitBox(13, 46, 8, 0)
+
   const initTimeToChangeDirection = Math.floor(Math.random() * 3) + 1
 
   // crear nuestro sprite
-  const pirate = new Pirate(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames, physics, initTimeToChangeDirection)
+  const pirate = new Pirate(SpriteID.PIRATE, State.RIGHT_2, 100, 100, imageSet, frames, physics, initTimeToChangeDirection, hitBox)
 
   // añadir el pirate al array de sprites
   globals.sprites.push(pirate)
@@ -142,8 +146,11 @@ function initPlayer() {
   // crear nuestro objeto physics con vLimit 40 pixels por segundo
   const physics = new Physics(40)
 
+  // crear objeto hitbox
+  const hitBox = new HitBox(16, 51, 14, 5)
+
   // crear nuestro sprite
-  const player = new Sprite(SpriteID.PLAYER, State.STILL_RIGHT, 100, 70, imageSet, frames, physics)
+  const player = new Sprite(SpriteID.PLAYER, State.STILL_RIGHT, 100, 70, imageSet, frames, physics, hitBox)
 
   // añadir el player al array de sprites
   globals.sprites.push(player)

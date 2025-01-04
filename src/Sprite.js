@@ -1,6 +1,6 @@
 // clase gestora de los sprites
 export default class Sprite {
-  constructor(id, state, xPos, yPos, imageSet, frames, physics) {
+  constructor(id, state, xPos, yPos, imageSet, frames, physics, hitBox = { xOffset: 0, yOffset: 0, xSize: 0, ySize: 0 }) {
     this.id = id
     this.state = state
     this.xPos = xPos
@@ -8,13 +8,14 @@ export default class Sprite {
     this.imageSet = imageSet
     this.frames = frames
     this.physics = physics
+    this.hitBox = hitBox
   }
 }
 
 export class Pirate extends Sprite {
-  constructor(id, state, xPos, yPos, imageSet, frames, physics, maxTimeToChangeDirection) {
+  constructor(id, state, xPos, yPos, imageSet, frames, physics, maxTimeToChangeDirection, hitBox) {
     // llamar al constructor de la clase Sprite
-    super(id, state, xPos, yPos, imageSet, frames, physics)
+    super(id, state, xPos, yPos, imageSet, frames, physics, hitBox)
     
     this.directionChangeCounter = 0
     this.maxTimeToChangeDirection = maxTimeToChangeDirection
