@@ -1,4 +1,5 @@
 import globals from "./globals.js"
+import { Block, State } from "./constants.js"
 
 export default function detectCollisions() {
   // calcular colision del player con cada uno de los sprites
@@ -6,6 +7,9 @@ export default function detectCollisions() {
     const sprite = globals.sprites[i]
     detectCollisionBetweenPlayerAndSprite(sprite)
   }
+
+  // calcular colision delk player con los obstaculos del mapa
+  detectCollisionBetweenPlayerAndMapObstacles()
 }
 
 function detectCollisionBetweenPlayerAndSprite(sprite) {
@@ -47,4 +51,114 @@ function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
   } else
     isOverlap = true
   return isOverlap
+}
+
+// devuelve el id del tile del mapa para las coordenadas xpos e ypos
+function getMapTileId(xPos, yPos) {
+  const brickSize = globals.level.imageSet.gridSize
+  const levelData = globals.level.data
+
+  const fil = Math.floor(yPos / brickSize)
+  const col = Math.floor(xPos / brickSize)
+
+  return levelData[fil][col]
+}
+
+// devuelve true si hay colision con un obstáculo determinado
+function isCollidingWithObstacleAt(xPos, yPos, obstacleId) {
+
+  let isColliding
+
+  const id = getMapTileId(xPos, yPos)
+
+  // calcular la colision con bloque de cristal
+  if (id === obstacleId) {
+    isColliding = true
+  } else isColliding = false
+  return isColliding
+}
+
+// calculo de colisiones con los bloques del mapa
+function detectCollisionBetweenPlayerAndMapObstacles() {
+  const player = globals.sprites[0]
+
+  // reset collision state
+  player.isCollidingWithObstacleOnTheRight = false
+  player.isCollidingWithObstacleOnTheLeft = false
+
+  // variables to use
+  let xPos
+  let yPos
+  let isCollidingOnPos1
+  let isCollidingOnPos2
+  let isCollidingOnPos3
+  let isColliding
+  let overlap
+
+  const brickSize = globals.level.imageSet.gridSize
+  const direction = player.state
+
+  // ID del obstáculo
+  const obstacleId = Block.CRYSTAL_1
+
+  switch (direction) {
+    case State.RIGHT:
+
+      // primera colision en (xpos + xsize -1, ypos)
+      xPos = player.xPos + player.hitBox.xOffset + player.hitBox.xSize - 1
+      yPos = player.yPos + player.hitBox.yOffset
+      isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // segunda colision en (xpos + xsize -1, ypos + bricksize)
+      yPos = player.yPos + player.hitBox.yOffset + brickSize
+      isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // ultima colision en (xpos + xsize - 1, ypos + ysize -1)
+      yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize - 1
+      isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // habrá colision si toca alguno de los 3 bloques
+      isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3
+
+      if (isColliding) {
+        // existe colision a la derecha
+        player.isCollidingWithObstacleOnTheRight = true
+
+        // AJUSTE: Calcular solapamiento y mover el personaje lo correspondiente
+        overlap = Math.floor(xPos) % brickSize + 1
+        player.xPos -= overlap
+      }
+
+      break;
+
+    case State.LEFT:
+      // primera colision en (xpos + xsize -1, ypos)
+      xPos = player.xPos + player.hitBox.xOffset - 1
+      yPos = player.yPos + player.hitBox.yOffset
+      isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // segunda colision en (xpos + xsize -1, ypos + bricksize)
+      yPos = player.yPos + player.hitBox.yOffset + brickSize
+      isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // ultima colision en (xpos + xsize - 1, ypos + ysize -1)
+      yPos = player.yPos + player.hitBox.yOffset - 1
+      isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
+
+      // habrá colision si toca alguno de los 3 bloques
+      isColliding = isCollidingOnPos1 || isCollidingOnPos2 || isCollidingOnPos3
+
+      if (isColliding) {
+        // existe colision a la derecha
+        player.isCollidingWithObstacleOnTheLeft = true
+
+        // AJUSTE: Calcular solapamiento y mover el personaje lo correspondiente
+        overlap = Math.floor(xPos) % brickSize + 1
+        player.xPos -= overlap - brickSize
+      }
+      break
+
+    default:
+      break;
+  }
 }

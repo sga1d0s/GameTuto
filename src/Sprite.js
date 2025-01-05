@@ -10,6 +10,10 @@ export default class Sprite {
     this.physics = physics
     this.hitBox = hitBox
     this.isCollidingWithPlayer = false
+    this.isCollidingWithObstacleOnTheTop = false
+    this.isCollidingWithObstacleOnTheLeft = false
+    this.isCollidingWithObstacleOnTheBottom = false
+    this.isCollidingWithObstacleOnTheRight = false
   }
 }
 
