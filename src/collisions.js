@@ -82,9 +82,11 @@ function isCollidingWithObstacleAt(xPos, yPos, obstacleId) {
 function detectCollisionBetweenPlayerAndMapObstacles() {
   const player = globals.sprites[0]
 
-  // reset collision state
-  player.isCollidingWithObstacleOnTheRight = false
-  player.isCollidingWithObstacleOnTheLeft = false
+  // eset collision state
+  player.isCollidingWithObstacleOnTheRight = false;
+  player.isCollidingWithObstacleOnTheLeft = false;
+  player.isCollidingWithObstacleOnTheTop = false;
+  player.isCollidingWithObstacleOnTheBottom = false;
 
   // variables to use
   let xPos
@@ -103,7 +105,6 @@ function detectCollisionBetweenPlayerAndMapObstacles() {
 
   switch (direction) {
     case State.RIGHT:
-
       // primera colision en (xpos + xsize -1, ypos)
       xPos = player.xPos + player.hitBox.xOffset + player.hitBox.xSize - 1
       yPos = player.yPos + player.hitBox.yOffset
@@ -142,7 +143,7 @@ function detectCollisionBetweenPlayerAndMapObstacles() {
       isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
 
       // ultima colision en (xpos + xsize - 1, ypos + ysize -1)
-      yPos = player.yPos + player.hitBox.yOffset - 1
+      yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize - 1
       isCollidingOnPos3 = isCollidingWithObstacleAt(xPos, yPos, obstacleId)
 
       // habrá colision si toca alguno de los 3 bloques
@@ -157,6 +158,54 @@ function detectCollisionBetweenPlayerAndMapObstacles() {
         player.xPos -= overlap - brickSize
       }
       break
+
+    case State.DOWN:
+      // primera colisión en (xPos, yPos + ySize - 1)
+      yPos = player.yPos + player.hitBox.yOffset + player.hitBox.ySize - 1;
+
+      xPos = player.xPos + player.hitBox.xOffset;
+      isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+      // segunda colisión en (xPos + brickSize, yPos + ySize - 1)
+      xPos = player.xPos + brickSize - 3;
+      isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+      // habrá colisión si toca alguno de los 3 bloques
+      isColliding = isCollidingOnPos1 || isCollidingOnPos2;
+
+      if (isColliding) {
+        // existe colisión hacia abajo
+        player.isCollidingWithObstacleOnTheBottom = true;
+
+        // AJUSTE: Calcular solapamiento y mover el personaje lo correspondiente
+        overlap = Math.floor(yPos) % brickSize + 1;
+        player.yPos -= overlap;
+      }
+      break;
+
+    case State.UP:
+      // primera colisión en (xPos, yPos)
+      yPos = player.yPos + player.hitBox.yOffset - 1;
+
+      xPos = player.xPos + player.hitBox.xOffset;
+      isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+      // segunda colisión en (xPos + brickSize, yPos)
+      xPos = player.xPos + brickSize - 3;
+      isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+
+      // habrá colisión si toca alguno de los 3 bloques
+      isColliding = isCollidingOnPos1 || isCollidingOnPos2;
+
+      if (isColliding) {
+        // existe colisión hacia arriba
+        player.isCollidingWithObstacleOnTheTop = true;
+
+        // AJUSTE: Calcular solapamiento y mover el personaje lo correspondiente
+        overlap = Math.floor(yPos) % brickSize + 1;
+        player.yPos -= overlap - brickSize;
+      }
+      break;
 
     default:
       break;

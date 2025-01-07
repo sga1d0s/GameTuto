@@ -94,7 +94,7 @@ function initTimers() {
 function initSprites() {
   initPlayer()
   initPirate()
-  initJoker()
+  // initJoker()
 }
 
 function initEvents() {
