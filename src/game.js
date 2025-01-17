@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars, loadAssets, initSprites, initLevel , initTimers, initEvents} from "./initialize.js"
+import { initHTMLElements, initVars, loadAssets, initSprites, initLevel , initTimers, initEvents, initCamera} from "./initialize.js"
 import update from "./gameLogic.js"
 import updateSprite from "./gameLogic.js"
 import render from "./gameRender.js"
@@ -32,6 +32,9 @@ function init() {
 
   // inicializadion de los eventos
   initEvents()
+
+  // inicializamos la cámara
+  initCamera()
 
   // start the first frame request
   window.requestAnimationFrame(gameLoop)

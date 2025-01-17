@@ -238,10 +238,10 @@ function readKeyboardAndAssignState(sprite) {
 }
 
 // actualiza la vida por colision
-function updateLife(){
+function updateLife() {
   for (let i = 1; i < globals.sprites.length; i++) {
-    const sprite = globals.sprites[i]   
-    
+    const sprite = globals.sprites[i]
+
     // reducimos si hay colision
     if (sprite.isCollidingWithPlayer) {
       globals.life--
@@ -256,7 +256,20 @@ function playGame() {
   detectCollisions()
   // actualizar la lógica del juego
   updateGameTime()
+
+  // catualizar posicion de camara
+  updateCamera()
+
+  // actualizar las variables del juego
   updateLevelTime()
   updateLife()
 
+}
+
+// actualizar posición de camara
+function updateCamera() {
+  const player = globals.sprites[0]
+
+  globals.camera.x = Math.floor(player.xPos) + Math.floor((player.imageSet.xSize - globals.canvas.width) / 2)
+  globals.camera.y = Math.floor(player.yPos) + Math.floor((player.imageSet.ySize - globals.canvas.height) / 2)
 }

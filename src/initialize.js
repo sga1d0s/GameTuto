@@ -8,6 +8,7 @@ import Timer from "./Timer.js"
 import Physics from "./Physics.js"
 import { keyupHandler, keydownHandler } from "./events.js"
 import HitBox from "./HitBox.js"
+import Camera from "./Camera.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -167,6 +168,10 @@ function initLevel() {
   globals.level = new Level(level1, imageSet)
 }
 
+function initCamera() {
+  globals.camera = new Camera(0, 0)
+}
+
 // exportar funciones
 export {
   initHTMLElements,
@@ -175,5 +180,6 @@ export {
   initSprites,
   initLevel,
   initTimers,
-  initEvents
+  initEvents,
+  initCamera
 }

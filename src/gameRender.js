@@ -24,11 +24,18 @@ function drawGame() {
   globals.ctx.clearRect(0, 0, globals.canvas.width, globals.canvas.height)
   globals.ctxUHD.clearRect(0, 0, globals.canvasUHD.width, globals.canvasUHD.height)
 
+  // mover cámara
+  moveCamera()
+
   // dibujar el mapa (nivel)
   renderMap()
 
   // dibujar los elementos
   drawSprites()
+
+
+  // restaurar cámara
+  restoreCamera()
 
   // dibujamos el UHD
   renderUHD()
@@ -163,4 +170,17 @@ function renderUHD() {
   globals.ctxUHD.fillText("TIME", 224, 8)
   globals.ctxUHD.fillStyle = 'lightgray'
   globals.ctxUHD.fillText(time, 224, 16)
+}
+
+// funciones para el movimiento de cámera
+function moveCamera() {
+
+  const xTranslation = -globals.camera.x
+  const yTranslation = -globals.camera.y
+
+  globals.ctx.translate(xTranslation, yTranslation)
+}
+
+function restoreCamera() {
+  globals.ctx.setTransform(1, 0, 0, 1, 0, 0)
 }
