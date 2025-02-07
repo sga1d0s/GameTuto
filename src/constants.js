@@ -63,3 +63,13 @@ export const Key = {
   RIGHT: 39,
   LEFT: 37,
 }
+
+export const ParticleID = {
+  EXPLOSION: 0,
+}
+
+export const ParticleState = {
+  ON: 0,
+  FADE: 1,
+  OFF: -1
+}

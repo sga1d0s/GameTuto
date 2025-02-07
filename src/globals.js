@@ -49,4 +49,7 @@ export default {
 
   // life
   life: 0,
+
+  // partículas
+  particles: [],
 }

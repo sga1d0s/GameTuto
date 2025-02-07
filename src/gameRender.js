@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { Game, Tile } from "./constants.js"
+import { Game, Tile, ParticleID, ParticleState } from "./constants.js"
 
 // funcion que renderiza los graficos
 export default function render() {
@@ -33,9 +33,11 @@ function drawGame() {
   // dibujar los elementos
   drawSprites()
 
-
   // restaurar cámara
   restoreCamera()
+
+  // dibujar las particulas
+  renderParticles()
 
   // dibujamos el UHD
   renderUHD()
@@ -92,7 +94,7 @@ function renderSprite(sprite) {
   )
 }
 
-// dibunar los sprites
+// dibujar los sprites
 function drawSprites() {
   for (let i = 0; i < globals.sprites.length; ++i) {
     const sprite = globals.sprites[i];
@@ -104,6 +106,42 @@ function drawSprites() {
 
     // TEST: dibuja el hitbox
     drawHitBox(sprite)
+  }
+}
+
+// dibujar partículas
+function renderParticles() {
+  for (let i = 0; i < globals.particles.length; i++) {
+    const particle = globals.particles[i];
+    renderParticle(particle)
+  }
+}
+
+function renderParticle(particle) {
+  const type = particle.id
+
+  switch (type) {
+    case ParticleID.EXPLOSION:
+      renderExplosionParticle(particle)
+      break;
+
+    case ParticleID.FIRE:
+      // renderFireParticle(particle)
+      break;
+
+    default:
+      break;
+  }
+}
+
+function renderExplosionParticle(particle) {
+  if (ParticleState != ParticleState.OFF){
+    globals.ctx.fillStyle = 'blue';
+    globals.ctx.globalAlpha = particle.alpha;
+    globals.ctx.beginPath();
+    globals.ctx.arc();
+    globals.ctx.fill();
+    globals.ctx.globalAlpha = 1.0
   }
 }
 

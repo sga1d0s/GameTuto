@@ -1,5 +1,6 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars, loadAssets, initSprites, initLevel , initTimers, initEvents, initCamera} from "./initialize.js"
+import { initHTMLElements, initVars, loadAssets, initSprites, 
+  initLevel , initTimers, initEvents, initCamera, initParticles} from "./initialize.js"
 import update from "./gameLogic.js"
 import updateSprite from "./gameLogic.js"
 import render from "./gameRender.js"
@@ -15,26 +16,29 @@ function init() {
   // inicializamos los elementos HTML: Canvas, Context, Caja de texto de pruebas
   initHTMLElements()
 
-  // cargamos todos los activos: TILEMAPS, IMAGES, SOUNDS
+  // cargar todos los activos: TILEMAPS, IMAGES, SOUNDS
   loadAssets()
 
-  // iniciar los sprites
+  // inicializar los sprites
   initSprites()
 
-  // inicialización de las variables de juego
+  // inicializar de las variables de juego
   initVars()
 
-  // inicialización del mapa del juego
+  // inicializar del mapa del juego
   initLevel()
 
-  // iniciamos el timer
+  // inicializar el timer
   initTimers()
 
-  // inicializadion de los eventos
+  // inicializar de los eventos
   initEvents()
 
-  // inicializamos la cámara
+  // inicializar la cámara
   initCamera()
+
+  // inicializar partículas
+  initParticles()
 
   // start the first frame request
   window.requestAnimationFrame(gameLoop)

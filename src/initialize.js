@@ -1,5 +1,5 @@
 import globals from "./globals.js"
-import { Game, FPS, SpriteID, State } from "./constants.js"
+import { Game, FPS, SpriteID, State, ParticleID, ParticleState } from "./constants.js"
 import Sprite, { Pirate } from "./Sprite.js"
 import ImageSet from "./ImageSet.js"
 import Frames from "./Frames.js"
@@ -9,6 +9,7 @@ import Physics from "./Physics.js"
 import { keyupHandler, keydownHandler } from "./events.js"
 import HitBox from "./HitBox.js"
 import Camera from "./Camera.js"
+import ExplosionParticle from "./Particle.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -87,6 +88,41 @@ function loadHandler() {
   }
 }
 
+// PARTÍCULAS
+function initParticles () {
+  initExplosion()
+}
+
+function initExplosion() {
+  const numParticles = 300
+  const xInit = 100
+  const yInit = 100
+  const radius = 2.5
+  const timeToFadeMax = 5
+  const alpha = 1
+
+  for (let i = 0; i < numParticles; i++) {
+    const velocity = Math.random() * 25 + 5
+    const physics = new Physics(velocity)
+
+    const timeToFade = timeToFadeMax * Math.random() + 1
+
+    const particle = new ExplosionParticle(
+                            ParticleID.EXPLOSION, 
+                            ParticleState.ON, 
+                            xInit, yInit, 
+                            radius, 
+                            alpha, 
+                            physics, 
+                            timeToFade)
+    const randomAngle = Math.random() * 2 * Math.PI
+    particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle)
+    particle.physics.vy = particle.physics.vLimit * Math.cos(randomAngle)
+
+    globals.particles.push(particle)
+  }
+}
+
 function initTimers() {
   // creamos timer de valor 200, con cambios cada 0.5 segundos
   globals.levelTime = new Timer(200, 0.5)
@@ -95,7 +131,7 @@ function initTimers() {
 function initSprites() {
   initPlayer()
   initPirate()
-  // initJoker()
+  initJoker()
 }
 
 function initEvents() {
@@ -181,5 +217,6 @@ export {
   initLevel,
   initTimers,
   initEvents,
-  initCamera
+  initCamera,
+  initParticles
 }
