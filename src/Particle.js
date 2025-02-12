@@ -1,5 +1,6 @@
 class Particle {
   constructor(id, state, xPos, yPos, radius, alpha, physics) {
+
     this.id = id,
       this.state = state,
       this.xPos = xPos,
@@ -12,8 +13,10 @@ class Particle {
 
 export default class ExplosionParticle extends Particle {
   constructor(id, state, xPos, yPos, radius, alpha, physics, timeToFade) {
+
     super(id, state, xPos, yPos, radius, alpha, physics)
-    this.timeToFade = timeToFade
+
     this.fadeCounter = 0
+    this.timeToFade = timeToFade
   }
 }

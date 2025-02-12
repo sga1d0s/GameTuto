@@ -135,11 +135,13 @@ function renderParticle(particle) {
 }
 
 function renderExplosionParticle(particle) {
-  if (ParticleState != ParticleState.OFF){
+  if (ParticleState != ParticleState.OFF) {
     globals.ctx.fillStyle = 'blue';
     globals.ctx.globalAlpha = particle.alpha;
     globals.ctx.beginPath();
-    globals.ctx.arc();
+
+    /// partículas
+    globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
     globals.ctx.fill();
     globals.ctx.globalAlpha = 1.0
   }

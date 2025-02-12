@@ -189,10 +189,12 @@ function detectCollisionBetweenPlayerAndMapObstacles() {
 
       xPos = player.xPos + player.hitBox.xOffset;
       isCollidingOnPos1 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+      isCollidingOnPos1? console.log("POS 1"): false
 
       // segunda colisión en (xPos + brickSize, yPos)
       xPos = player.xPos + brickSize - 3;
       isCollidingOnPos2 = isCollidingWithObstacleAt(xPos, yPos, obstacleId);
+      isCollidingOnPos2? console.log("POS 2"): false
 
       // habrá colisión si toca alguno de los 3 bloques
       isColliding = isCollidingOnPos1 || isCollidingOnPos2;

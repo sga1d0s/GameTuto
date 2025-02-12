@@ -99,7 +99,7 @@ function initExplosion() {
   const yInit = 100
   const radius = 2.5
   const timeToFadeMax = 5
-  const alpha = 1
+  const alpha = 1.0
 
   for (let i = 0; i < numParticles; i++) {
     const velocity = Math.random() * 25 + 5
@@ -107,17 +107,10 @@ function initExplosion() {
 
     const timeToFade = timeToFadeMax * Math.random() + 1
 
-    const particle = new ExplosionParticle(
-                            ParticleID.EXPLOSION, 
-                            ParticleState.ON, 
-                            xInit, yInit, 
-                            radius, 
-                            alpha, 
-                            physics, 
-                            timeToFade)
+    const particle = new ExplosionParticle(ParticleID.EXPLOSION, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade)
     const randomAngle = Math.random() * 2 * Math.PI
     particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle)
-    particle.physics.vy = particle.physics.vLimit * Math.cos(randomAngle)
+    particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle)
 
     globals.particles.push(particle)
   }
