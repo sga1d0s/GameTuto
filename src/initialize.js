@@ -9,7 +9,7 @@ import Physics from "./Physics.js"
 import { keyupHandler, keydownHandler } from "./events.js"
 import HitBox from "./HitBox.js"
 import Camera from "./Camera.js"
-import ExplosionParticle from "./Particle.js"
+import { ExplosionParticle, FireParticle } from "./Particle.js"
 
 // funcionque inicializa los elementos HTML
 function initHTMLElements() {
@@ -89,10 +89,12 @@ function loadHandler() {
 }
 
 // PARTÍCULAS
-function initParticles () {
-  initExplosion()
+function initParticles() {
+  // initExplosion()
+  initFire()
 }
 
+// particulas EXPLOSIOM
 function initExplosion() {
   const numParticles = 300
   const xInit = 100
@@ -121,6 +123,35 @@ function initExplosion() {
 
     globals.particles.push(particle)
   }
+}
+
+// partículas FUEGO
+function initFire() {
+  const numParticles = 100
+
+  for (let i = 0; i < numParticles; i++) {
+    createFireParticle()
+  }
+}
+
+function createFireParticle() {
+  const alpha = 1.0
+  const velocity = Math.random() * 20 + 10
+  const physics = new Physics(velocity)
+
+  const xInit = Math.random() * 50 + 100
+  const yInit = 100
+
+  const radius = 8 * Math.random() + 2
+
+  const particle = new FireParticle(ParticleID.FIRE, ParticleState.ON, xInit, yInit, radius, alpha, physics)
+
+  const randomAngle = Math.random() * Math.PI/ 3 + 3 * Math.PI / 2
+
+  particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle)
+  particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle)
+
+  globals.particles.push(particle)
 }
 
 function initTimers() {
@@ -218,5 +249,6 @@ export {
   initTimers,
   initEvents,
   initCamera,
-  initParticles
+  initParticles,
+  createFireParticle
 }

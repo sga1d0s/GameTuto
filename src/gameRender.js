@@ -126,7 +126,7 @@ function renderParticle(particle) {
       break;
 
     case ParticleID.FIRE:
-      // renderFireParticle(particle)
+      renderFireParticle(particle)
       break;
 
     default:
@@ -144,6 +144,21 @@ function renderExplosionParticle(particle) {
     globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI);
     globals.ctx.fill();
     globals.ctx.globalAlpha = 1.0
+  }
+}
+
+function renderFireParticle(particle) {
+  if (particle.state != ParticleState.OFF) {
+    globals.ctx.save()
+    globals.ctx.fillStyle = 'red'
+    globals.ctx.filter = 'blur(2px) saturate(500%)'
+
+    globals.ctx.globalsAlpha = particle.alpha; // set alpha
+    globals.ctx.beginPath();
+    globals.ctx.arc(particle.xPos, particle.yPos, particle.radius, 0, 2 * Math.PI)
+
+    globals.ctx.fill();
+    globals.ctx.restore();
   }
 }
 

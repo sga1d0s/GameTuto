@@ -1,6 +1,7 @@
 import globals from "./globals.js"
 import { Game, SpriteID, State, ParticleState, ParticleID } from "./constants.js"
 import detectCollisions from "./collisions.js"
+import {createFireParticle} from "./initialize.js"
 
 export default function update() {
 
@@ -279,11 +280,20 @@ function updateCamera() {
   globals.camera.y = Math.floor(player.yPos) + Math.floor((player.imageSet.ySize - globals.canvas.height) / 2)
 }
 
-// actualizar partículas
+// actualizar PARTÍCULAS
 function updateParticles() {
   for (let i = 0; i < globals.particles.length; i++) {
     const particle = globals.particles[i];
-    updateParticle(particle)
+
+    // si se borra una partícula se crea otra
+    if (particle.id === ParticleID.FIRE && particle.state === ParticleState.OFF) {
+      globals.particles.splice(i, 1)
+      i--
+      createFireParticle()
+    } else {
+      updateParticle(particle)
+    }
+    
   }
 }
 
@@ -294,6 +304,10 @@ function updateParticle(particle) {
     case ParticleID.EXPLOSION:
       updateExplosionParticle(particle)
       break;
+
+    case ParticleID.FIRE:
+      updateFireParticle(particle)
+      break
 
     default:
       break;
@@ -324,25 +338,54 @@ function updateExplosionParticle(particle) {
     case ParticleState.OFF:
       particle.alpha = 0
       globals.particles = []
-      console.log("PARTICLES DELETED");
-      console.log(globals.particles);
       break
 
     default:
       break;
   }
 
-    particle.physics.vx += particle.physics.ax * globals.deltaTime
-    particle.physics.vy += particle.physics.ay * globals.deltaTime
+  particle.physics.vx += particle.physics.ax * globals.deltaTime
+  particle.physics.vy += particle.physics.ay * globals.deltaTime
 
   // limitamos la velocidad a 1 para que no haya cambio de sentido
-   const velModule = Math.sqrt(Math.pow(particle.physics.vx, 2) + Math.pow(particle.physics.vy, 2));
- 
-   if (velModule < 1) {
-     particle.physics.vx = 0
-     particle.physics.vy = 0
-   }
+  const velModule = Math.sqrt(Math.pow(particle.physics.vx, 2) + Math.pow(particle.physics.vy, 2));
+
+  if (velModule < 1) {
+    particle.physics.vx = 0
+    particle.physics.vy = 0
+  }
 
   particle.yPos += particle.physics.vy * globals.deltaTime
   particle.xPos += particle.physics.vx * globals.deltaTime
+}
+
+function updateFireParticle(particle) {
+  //coger velocidades de los arrays
+  switch (particle.state) {
+    case ParticleState.ON:
+      particle.radius -= 0.1
+      if (particle.radius < 2) {
+        particle.state = ParticleState.FADE
+      }
+      break;
+
+    case ParticleState.FADE:
+      particle.alpha -= 0.3
+      if (particle.alpha <= 0) {
+        particle.state = ParticleState.OFF
+      }
+      break;
+
+    case ParticleState.OFF:
+      particle.alpha = 0
+      globals.particles = []
+    break
+
+    default:
+      break;
+  }
+
+  particle.xPos += particle.physics.vx * globals.deltaTime
+  particle.yPos += particle.physics.vy * globals.deltaTime
+
 }
