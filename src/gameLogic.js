@@ -292,7 +292,7 @@ function updateParticle(particle) {
 
   switch (type) {
     case ParticleID.EXPLOSION:
-      updateParticleExplosion(particle)
+      updateExplosionParticle(particle)
       break;
 
     default:
@@ -300,10 +300,12 @@ function updateParticle(particle) {
   }
 }
 
-function updateParticleExplosion(particle) {
+function updateExplosionParticle(particle) {
   particle.fadeCounter += globals.deltaTime
 
+  // coger velocidades de los arrays
   switch (particle.state) {
+
     case ParticleState.ON:
       if (particle.fadeCounter > particle.timeToFade) {
         particle.fadeCounter = 0
@@ -312,7 +314,7 @@ function updateParticleExplosion(particle) {
       break;
 
     case ParticleState.FADE:
-      particle.alpha -= 0.1
+      particle.alpha -= 0.01
 
       if (particle.alpha <= 0) {
         particle.state = ParticleState.OFF
@@ -320,11 +322,26 @@ function updateParticleExplosion(particle) {
       break
 
     case ParticleState.OFF:
+      particle.alpha = 0
+      globals.particles = []
+      console.log("PARTICLES DELETED");
+      console.log(globals.particles);
       break
 
     default:
       break;
   }
+
+    particle.physics.vx += particle.physics.ax * globals.deltaTime
+    particle.physics.vy += particle.physics.ay * globals.deltaTime
+
+  // limitamos la velocidad a 1 para que no haya cambio de sentido
+   const velModule = Math.sqrt(Math.pow(particle.physics.vx, 2) + Math.pow(particle.physics.vy, 2));
+ 
+   if (velModule < 1) {
+     particle.physics.vx = 0
+     particle.physics.vy = 0
+   }
 
   particle.yPos += particle.physics.vy * globals.deltaTime
   particle.xPos += particle.physics.vx * globals.deltaTime

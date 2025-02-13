@@ -1,6 +1,8 @@
 import globals from "./globals.js"
-import { initHTMLElements, initVars, loadAssets, initSprites, 
-  initLevel , initTimers, initEvents, initCamera, initParticles} from "./initialize.js"
+import {
+  initHTMLElements, initVars, loadAssets, initSprites,
+  initLevel, initTimers, initEvents, initCamera, initParticles
+} from "./initialize.js"
 import update from "./gameLogic.js"
 import updateSprite from "./gameLogic.js"
 import render from "./gameRender.js"
@@ -28,6 +30,9 @@ function init() {
   // inicializar del mapa del juego
   initLevel()
 
+  // inicializar partículas
+  initParticles()
+
   // inicializar el timer
   initTimers()
 
@@ -37,8 +42,7 @@ function init() {
   // inicializar la cámara
   initCamera()
 
-  // inicializar partículas
-  initParticles()
+
 
   // start the first frame request
   window.requestAnimationFrame(gameLoop)

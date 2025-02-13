@@ -33,11 +33,11 @@ function drawGame() {
   // dibujar los elementos
   drawSprites()
 
-  // restaurar cámara
-  restoreCamera()
-
   // dibujar las particulas
   renderParticles()
+
+  // restaurar cámara
+  restoreCamera()
 
   // dibujamos el UHD
   renderUHD()
