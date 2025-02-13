@@ -94,19 +94,19 @@ function initParticles () {
 }
 
 function initExplosion() {
-  const numParticles = 1
+  const numParticles = 300
   const xInit = 100
-  const yInit = 100
+  const yInit = 50
   const radius = 2.5
-  const timeToFadeMax = 5
   const alpha = 1
 
   for (let i = 0; i < numParticles; i++) {
 
-    const velocity = Math.random() * 25 + 5
-    const physics = new Physics(velocity)
+    const velocity = Math.random() * 30 + 15
+    const acceleration = 2
+    const timeToFade = 1 * Math.random() + 1
 
-    const timeToFade = timeToFadeMax * Math.random() + 1
+    const physics = new Physics(velocity, acceleration)
 
     const particle = new ExplosionParticle(ParticleID.EXPLOSION, ParticleState.ON, xInit, yInit, radius, alpha, physics, timeToFade)
 
@@ -115,8 +115,9 @@ function initExplosion() {
     particle.physics.vx = particle.physics.vLimit * Math.cos(randomAngle)
     particle.physics.vy = particle.physics.vLimit * Math.sin(randomAngle)
 
-/*     particle.physics.ax = -particle.physics.aLimit * Math.cos(randomAngle)
-    particle.physics.ay = -particle.physics.aLimit * Math.sin(randomAngle) */
+    particle.physics.ax = -particle.physics.aLimit * Math.cos(randomAngle)
+    // particle.physics.ay = -particle.physics.aLimit * Math.sin(randomAngle)
+    particle.physics.ay = -100 * Math.sin(-90)
 
     globals.particles.push(particle)
   }
